@@ -70,7 +70,7 @@ namespace ApiRepuestosCarros.Controllers
             {
                 return NotFound();
             }
-
+            //imagen
             return File(producto.image);
         }
 
