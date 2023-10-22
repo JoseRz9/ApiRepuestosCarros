@@ -1,6 +1,8 @@
 ﻿using ApiRepuestosCarros.Contracts;
 using ApiRepuestosCarros.Models;
 using Dapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data;
@@ -12,7 +14,9 @@ using static System.Net.Mime.MediaTypeNames;
 namespace ApiRepuestosCarros.Controllers
 {
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/producto")]
+    
     public class ProductoController : ControllerBase
     {
         private readonly IProductoRepository _productoRepo;
@@ -23,6 +27,7 @@ namespace ApiRepuestosCarros.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("listaProducto")]
         public async Task<ActionResult<Producto>> listaProducto()
         {
@@ -36,6 +41,7 @@ namespace ApiRepuestosCarros.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("listaProductoSucursal")]
         public async Task<ActionResult<Producto>> listaProductoSucursal(int id)
         {
@@ -49,6 +55,7 @@ namespace ApiRepuestosCarros.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("productoId")]
         public async Task<IActionResult> GetProducto(int id)
         {
@@ -60,8 +67,9 @@ namespace ApiRepuestosCarros.Controllers
             return Ok(producto);
         }
 
-        
+
         [HttpGet]
+        [AllowAnonymous]
         [Route("productoIdImage")]
         public async Task<IActionResult> GetProductoImage(int id)
         {
@@ -86,6 +94,7 @@ namespace ApiRepuestosCarros.Controllers
 
 
         [HttpPost]
+        [Authorize]
         [Route("crearProducto")]
         public async Task<IActionResult> CrearProducto([FromBody] Producto producto)
         {
@@ -99,6 +108,7 @@ namespace ApiRepuestosCarros.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("crearProductoImage")]
         public async Task<IActionResult> CrearProductoimage(IFormFile file, string cod_prod, string cod_barr, string nom, string desc, decimal prec, int id_cat, int id_suc)
         {
@@ -113,6 +123,7 @@ namespace ApiRepuestosCarros.Controllers
 
 
         [HttpPut]
+        [Authorize]
         [Route("actualizaProducto")]
         public async Task<IActionResult> ActualizaProducto(int id, [FromBody] Producto producto)
         {
@@ -127,6 +138,7 @@ namespace ApiRepuestosCarros.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("eliminarUbicacion")]
         public async Task<IActionResult> EliminaProducto(int id)
         {

@@ -15,5 +15,6 @@ namespace ApiRepuestosCarros.Contracts
 
         public Task<Producto> GetImagenProducto(int id_producto);
 
+
     }
 }

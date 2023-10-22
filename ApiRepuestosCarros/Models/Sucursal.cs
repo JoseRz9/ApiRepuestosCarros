@@ -6,5 +6,7 @@
         public string cod_sucursal { get; set; } = string.Empty;
         public string nombre { get; set; } = string.Empty;
         public int id_ubicacion { get; set; }
+
+        //public List<Ubicacion> ubicacion {  get; set; }
     }
 }

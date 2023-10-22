@@ -1,12 +1,16 @@
 ﻿using ApiRepuestosCarros.Contracts;
 using ApiRepuestosCarros.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiRepuestosCarros.Controllers
 {
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/ubicacion")]
+    
     public class UbicacionController : ControllerBase
     {
         private readonly IUbicacionRepository _ubicacionRepo;
@@ -17,6 +21,7 @@ namespace ApiRepuestosCarros.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("listaUbicacion")]
         public async Task<ActionResult> listaUbicacion()
         {
@@ -30,6 +35,7 @@ namespace ApiRepuestosCarros.Controllers
 
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("ubicacionId")]
         public async Task<IActionResult> GetUbicacion(int id)
         {
@@ -42,6 +48,7 @@ namespace ApiRepuestosCarros.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("crearUbicacion")]
         public async Task<IActionResult> CrearUbicacion([FromBody] Ubicacion ubicacion)
         {
@@ -55,6 +62,7 @@ namespace ApiRepuestosCarros.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [Route("actualizaUbicacion")]
         public async Task<IActionResult> ActualizaUbicacion(int id, [FromBody] Ubicacion ubicacion)
         {
@@ -69,6 +77,7 @@ namespace ApiRepuestosCarros.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("eliminarUbicacion")]
         public async Task<IActionResult> EliminaUbicacion(int id)
         {

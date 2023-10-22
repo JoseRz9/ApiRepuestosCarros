@@ -1,12 +1,16 @@
 ﻿using ApiRepuestosCarros.Contracts;
 using ApiRepuestosCarros.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiRepuestosCarros.Controllers
 {
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/sucursal")]
+   
     public class SucursalController : ControllerBase
     {
         private readonly ISucursalRepository _sucursalRepo;
@@ -17,6 +21,7 @@ namespace ApiRepuestosCarros.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("listaSucursal")]
         public async Task<ActionResult> listaSucursal()
         {
@@ -29,6 +34,7 @@ namespace ApiRepuestosCarros.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("sucursalId")]
         public async Task<IActionResult> GetSucursal(int id)
         {
@@ -41,6 +47,7 @@ namespace ApiRepuestosCarros.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("crearSucursal")]
         public async Task<IActionResult> CrearSucursal([FromBody] Sucursal sucursal)
         {
@@ -54,6 +61,7 @@ namespace ApiRepuestosCarros.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [Route("actualizaSucursal")]
         public async Task<IActionResult> ActualizaSucursal(int id, [FromBody] Sucursal sucursal)
         {
@@ -68,6 +76,7 @@ namespace ApiRepuestosCarros.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("eliminarSucursal")]
         public async Task<IActionResult> EliminaSucursal(int id)
         {

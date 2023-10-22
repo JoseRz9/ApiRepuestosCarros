@@ -5,5 +5,6 @@
         public int id_categoria { get; set; }
         public string cod_categoria { get; set; }
         public string nombre { get; set; } = string.Empty;
+        //public List<Categoria> Categorias { get; set; }
     }
 }

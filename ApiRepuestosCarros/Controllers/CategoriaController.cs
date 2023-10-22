@@ -1,6 +1,8 @@
 ﻿using ApiRepuestosCarros.Contracts;
 using ApiRepuestosCarros.Models;
 using Dapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +12,7 @@ namespace ApiRepuestosCarros.Controllers
 {
 
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/categoria")]
     public class CategoriaController : ControllerBase
     {
@@ -21,6 +24,7 @@ namespace ApiRepuestosCarros.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("listaCategoria")]
         public async Task<ActionResult> listaCategoria()
         {
@@ -29,6 +33,7 @@ namespace ApiRepuestosCarros.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("categoriaId")]
         public async Task<IActionResult> GetCategoria(int id)
         {
@@ -42,6 +47,7 @@ namespace ApiRepuestosCarros.Controllers
 
 
         [HttpPost]
+        [Authorize]
         [Route("crearCategoria")]
         public async Task<IActionResult> CrearCategoria([FromBody] Categoria categoria)
         {
@@ -55,6 +61,7 @@ namespace ApiRepuestosCarros.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [Route("actualizaCategoria")]
         public async Task<IActionResult> ActualizaCategoria(int id, [FromBody] Categoria categoria)
         {
@@ -69,6 +76,7 @@ namespace ApiRepuestosCarros.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("eliminarCategoria")]
         public async Task<IActionResult> EliminaCategoria(int id)
         {

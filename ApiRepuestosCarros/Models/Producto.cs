@@ -14,5 +14,9 @@
 
         public byte[] image { get; set; }
 
+
+        //public List<Categoria> categoria { get; set; }
+        //public List<Sucursal> sucursal { get; set; }
+
     }
 }

@@ -92,6 +92,7 @@ namespace ApiRepuestosCarros.Repository
             }
         }
 
+
         public async Task<IEnumerable<Producto>> GetProductos()
         {
             var sql = "SELECT * FROM producto";
