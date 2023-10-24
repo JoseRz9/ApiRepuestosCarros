@@ -18,5 +18,8 @@
         //public List<Categoria> categoria { get; set; }
         //public List<Sucursal> sucursal { get; set; }
 
+        public Categoria Categoria { get; set; }
+        public Sucursal Sucursal { get; set; }  
+
     }
 }

@@ -92,6 +92,7 @@ namespace ApiRepuestosCarros.Repository
             }
         }
 
+       
 
         public async Task<IEnumerable<Producto>> GetProductos()
         {
@@ -101,6 +102,41 @@ namespace ApiRepuestosCarros.Repository
             {
                 var producto = await connection.QueryAsync<Producto>(sql);
                 return producto.ToList();
+            }
+        }
+
+        public Producto GetProductoS(int idProducto)
+        {
+            using (var connection = _context.CreateConnection())
+            {
+                connection.Open();
+
+                string sql = @"
+                SELECT 
+                    p.*, 
+                    c.*,
+                    s.*,
+                    u.*
+                FROM producto p
+                INNER JOIN categoria c ON p.id_categoria = c.id_categoria
+                INNER JOIN sucursal s ON p.id_sucursal = s.id_sucursal
+                INNER JOIN ubicacion u ON s.id_ubicacion = u.id_ubicacion
+                WHERE p.id_producto = @IdProducto";
+
+                var producto = connection.Query<Producto, Categoria, Sucursal,Ubicacion, Producto>(
+                    sql,
+                    (prod, cat, suc, ubi) =>
+                    {
+                        prod.Categoria = cat;
+                        prod.Sucursal = suc;
+                        suc.Ubicacion = ubi;
+                        return prod;
+                    },
+                    new { IdProducto = idProducto },
+                    splitOn: "id_categoria,id_sucursal,id_ubicacion"
+                ).AsList().FirstOrDefault();
+
+                return producto;
             }
         }
 

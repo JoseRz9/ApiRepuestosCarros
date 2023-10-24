@@ -8,5 +8,6 @@
         public int id_ubicacion { get; set; }
 
         //public List<Ubicacion> ubicacion {  get; set; }
+        public Ubicacion Ubicacion { get; set; }    
     }
 }

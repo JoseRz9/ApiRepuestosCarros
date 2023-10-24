@@ -67,6 +67,22 @@ namespace ApiRepuestosCarros.Controllers
             return Ok(producto);
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("descripcionProductoId")]
+        public IActionResult GetProductoS(int id)
+        {
+            var producto =  _productoRepo.GetProductoS(id);
+
+            if (producto == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(producto);
+        }
+
+
 
         [HttpGet]
         [AllowAnonymous]

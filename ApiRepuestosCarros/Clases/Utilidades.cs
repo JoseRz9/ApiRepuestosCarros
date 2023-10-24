@@ -12,7 +12,8 @@ namespace ApiRepuestosCarros.Clases
                 return new UsuariosDTO
                 {
                     token = u.token,
-                    usuario = u.usuario
+                    usuario = u.usuario,
+                    email = u.email
                 };
             }
 
